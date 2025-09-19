@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'doctor_verification_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -265,6 +266,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   label: const Text('Save Profile'),
                 ),
               ),
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 56,
+                child: OutlinedButton.icon(
+                  onPressed: _verifyCredentials,
+                  icon: const Icon(Icons.verified_user),
+                  label: const Text('Verify Medical Credentials'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF1976D2),
+                    side: const BorderSide(color: Color(0xFF1976D2)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -283,6 +297,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (_formKey.currentState?.validate() != true) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Profile saved')),
+    );
+  }
+
+  void _verifyCredentials() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const DoctorVerificationScreen(),
+      ),
     );
   }
 }

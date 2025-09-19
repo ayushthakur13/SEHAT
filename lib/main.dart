@@ -10,6 +10,7 @@ import 'screens/inventory_screen.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/reports_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/doctor_verification_screen.dart';
 
 void main() {
   runApp(const SehatHospitalApp());
