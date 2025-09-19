@@ -79,6 +79,35 @@ const Doctor = sequelize.define("Doctor", {
     type: DataTypes.DATE,
     allowNull: true,
   },
+  // MVP Enhancement Fields
+  availabilitySchedule: {
+    type: DataTypes.JSON,
+    allowNull: true
+  },
+  currentStatus: {
+    type: DataTypes.ENUM('available', 'busy', 'offline', 'in_consultation'),
+    defaultValue: 'offline'
+  },
+  maxConcurrentConsultations: {
+    type: DataTypes.INTEGER,
+    defaultValue: 1
+  },
+  preferredConsultationType: {
+    type: DataTypes.ENUM('video', 'audio', 'both'),
+    defaultValue: 'both'
+  },
+  lowBandwidthMode: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  offlineCapable: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  },
+  lastSyncAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
 }, {
   tableName: "doctors",
   timestamps: true,

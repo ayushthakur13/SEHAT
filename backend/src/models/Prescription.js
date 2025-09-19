@@ -64,6 +64,21 @@ const Prescription = sequelize.define("Prescription", {
     type: DataTypes.DATE,
     allowNull: true,
   },
+  // MVP Enhancement Fields
+  language: {
+    type: DataTypes.ENUM('english', 'hindi', 'punjabi'),
+    defaultValue: 'english',
+    allowNull: true
+  },
+  validUntil: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  isEmergency: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: true
+  },
   isOffline: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

@@ -15,9 +15,10 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
     
-    // Sync database models (alter existing tables to match new schema)
-    await sequelize.sync({ alter: true });
-    console.log('✅ Database models synchronized.');
+    // Sync database models safely
+    // Only create new tables if they don't exist, preserve existing data
+    await sequelize.sync({ alter: false });
+    console.log('✅ Database models synchronized (existing data preserved).');
     
     // Start server
     app.listen(PORT, () => {

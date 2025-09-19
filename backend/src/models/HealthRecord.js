@@ -51,6 +51,19 @@ const HealthRecord = sequelize.define("HealthRecord", {
       key: "id",
     },
   },
+  // MVP Enhancement Fields
+  data: {
+    type: DataTypes.JSON,
+    allowNull: true
+  },
+  notes: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
+  severity: {
+    type: DataTypes.ENUM('low', 'medium', 'high', 'critical'),
+    allowNull: true
+  },
   isOffline: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

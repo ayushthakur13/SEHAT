@@ -9,6 +9,7 @@ import Prescription from "./Prescription.js";
 import PrescriptionMedicine from "./PrescriptionMedicine.js";
 import HealthRecord from "./HealthRecord.js";
 import PharmacyStock from "./PharmacyStock.js";
+import DoctorNotification from "./DoctorNotification.js";
 
 // Define associations
 // User associations
@@ -69,6 +70,14 @@ HealthRecord.belongsTo(Doctor, { foreignKey: "doctorId", as: "doctor" });
 PharmacyStock.belongsTo(Pharmacy, { foreignKey: "pharmacyId", as: "pharmacy" });
 PharmacyStock.belongsTo(Medicine, { foreignKey: "medicineId", as: "medicine" });
 
+// DoctorNotification associations
+DoctorNotification.belongsTo(Doctor, { foreignKey: "doctorId", as: "doctor" });
+DoctorNotification.belongsTo(Patient, { foreignKey: "patientId", as: "patient" });
+DoctorNotification.belongsTo(Consultation, { foreignKey: "consultationId", as: "consultation" });
+
+// Doctor notification relationships
+Doctor.hasMany(DoctorNotification, { foreignKey: "doctorId", as: "notifications" });
+
 export {
   sequelize,
   User,
@@ -81,4 +90,5 @@ export {
   PrescriptionMedicine,
   HealthRecord,
   PharmacyStock,
+  DoctorNotification,
 };
