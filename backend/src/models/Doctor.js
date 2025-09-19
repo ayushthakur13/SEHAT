@@ -7,34 +7,36 @@ const Doctor = sequelize.define("Doctor", {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: true, // Temporarily allow null during migration
     unique: true,
-    validate: {
-      isEmail: true,
-    },
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   },
-  phone: {
+  // Verification Fields (collected during verification step)
+  hospitalId: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   licenseNumber: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true,
+  },
+  currentHospitalClinic: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  pincode: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   specialization: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true, // Will be filled during verification
   },
   experience: {
     type: DataTypes.INTEGER,
@@ -57,9 +59,13 @@ const Doctor = sequelize.define("Doctor", {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
-  isActive: {
+  isVerified: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
+  },
+  verificationData: {
+    type: DataTypes.JSON,
+    allowNull: true,
   },
   rating: {
     type: DataTypes.DECIMAL(3, 2),

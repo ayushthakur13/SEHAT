@@ -7,33 +7,14 @@ const Patient = sequelize.define("Patient", {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: true, // Temporarily allow null during migration
     unique: true,
-    validate: {
-      isEmail: true,
-    },
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  dateOfBirth: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-  gender: {
-    type: DataTypes.ENUM("male", "female", "other"),
-    allowNull: true,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   },
   address: {
     type: DataTypes.TEXT,
@@ -59,10 +40,6 @@ const Patient = sequelize.define("Patient", {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  preferredLanguage: {
-    type: DataTypes.ENUM("punjabi", "hindi", "english"),
-    defaultValue: "english",
-  },
   bloodGroup: {
     type: DataTypes.ENUM("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"),
     allowNull: true,
@@ -75,16 +52,8 @@ const Patient = sequelize.define("Patient", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
   lastSyncAt: {
     type: DataTypes.DATE,
-    allowNull: true,
-  },
-  deviceId: {
-    type: DataTypes.STRING,
     allowNull: true,
   },
 }, {

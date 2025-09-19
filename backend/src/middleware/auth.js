@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { Patient, Doctor, Pharmacy } from "../models/index.js";
+import { User, Patient, Doctor, Pharmacy } from "../models/index.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "sehat_secret_key_2025";
 
@@ -28,30 +28,15 @@ export const authMiddleware = async (req, res, next) => {
     const decoded = verifyToken(token);
     const { userId, userType } = decoded;
 
-    // Find user based on type
-    let user;
-    switch (userType) {
-      case "patient":
-        user = await Patient.findByPk(userId, {
-          attributes: { exclude: ['password'] }
-        });
-        break;
-      case "doctor":
-        user = await Doctor.findByPk(userId, {
-          attributes: { exclude: ['password'] }
-        });
-        break;
-      case "pharmacy":
-        user = await Pharmacy.findByPk(userId, {
-          attributes: { exclude: ['password'] }
-        });
-        break;
-      default:
-        return res.status(401).json({
-          status: 'error',
-          message: 'Invalid user type.'
-        });
-    }
+    // Find user with role-specific data
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+      include: [
+        { model: Patient, as: 'patient', required: false },
+        { model: Doctor, as: 'doctor', required: false },
+        { model: Pharmacy, as: 'pharmacy', required: false }
+      ]
+    });
 
     if (!user) {
       return res.status(401).json({
@@ -64,6 +49,14 @@ export const authMiddleware = async (req, res, next) => {
       return res.status(401).json({
         status: 'error',
         message: 'Account is deactivated. Please contact support.'
+      });
+    }
+
+    // Verify userType matches the user's actual role
+    if (user.role !== userType) {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Token user type mismatch.'
       });
     }
 

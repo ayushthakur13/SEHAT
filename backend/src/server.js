@@ -15,8 +15,8 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
     
-    // Sync database models
-    await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
+    // Sync database models (alter existing tables to match new schema)
+    await sequelize.sync({ alter: true });
     console.log('✅ Database models synchronized.');
     
     // Start server

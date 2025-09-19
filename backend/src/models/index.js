@@ -1,4 +1,5 @@
 import { sequelize } from "../config/database.js";
+import User from "./User.js";
 import Patient from "./Patient.js";
 import Doctor from "./Doctor.js";
 import Pharmacy from "./Pharmacy.js";
@@ -10,17 +11,25 @@ import HealthRecord from "./HealthRecord.js";
 import PharmacyStock from "./PharmacyStock.js";
 
 // Define associations
+// User associations
+User.hasOne(Patient, { foreignKey: "userId", as: "patient" });
+User.hasOne(Doctor, { foreignKey: "userId", as: "doctor" });
+User.hasOne(Pharmacy, { foreignKey: "userId", as: "pharmacy" });
+
 // Patient associations
+Patient.belongsTo(User, { foreignKey: "userId", as: "user" });
 Patient.hasMany(Consultation, { foreignKey: "patientId", as: "consultations" });
 Patient.hasMany(Prescription, { foreignKey: "patientId", as: "prescriptions" });
 Patient.hasMany(HealthRecord, { foreignKey: "patientId", as: "healthRecords" });
 
 // Doctor associations
+Doctor.belongsTo(User, { foreignKey: "userId", as: "user" });
 Doctor.hasMany(Consultation, { foreignKey: "doctorId", as: "consultations" });
 Doctor.hasMany(Prescription, { foreignKey: "doctorId", as: "prescriptions" });
 Doctor.hasMany(HealthRecord, { foreignKey: "doctorId", as: "healthRecords" });
 
 // Pharmacy associations
+Pharmacy.belongsTo(User, { foreignKey: "userId", as: "user" });
 Pharmacy.hasMany(Prescription, { foreignKey: "pharmacyId", as: "prescriptions" });
 Pharmacy.hasMany(PharmacyStock, { foreignKey: "pharmacyId", as: "stocks" });
 
@@ -62,6 +71,7 @@ PharmacyStock.belongsTo(Medicine, { foreignKey: "medicineId", as: "medicine" });
 
 export {
   sequelize,
+  User,
   Patient,
   Doctor,
   Pharmacy,

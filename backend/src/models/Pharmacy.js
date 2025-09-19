@@ -7,46 +7,44 @@ const Pharmacy = sequelize.define("Pharmacy", {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: true, // Temporarily allow null during migration
     unique: true,
-    validate: {
-      isEmail: true,
-    },
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   },
-  phone: {
+  // Pharmacy Store Details (filled during verification)
+  storeName: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true, // Will be filled during verification
   },
   licenseNumber: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true,
+  },
+  gstNumber: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   address: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true, // Will be filled during verification
   },
   city: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true, // Will be filled during verification
   },
   state: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true, // Will be filled during verification
   },
   pincode: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true, // Will be filled during verification
   },
   latitude: {
     type: DataTypes.DECIMAL(10, 8),
@@ -60,9 +58,13 @@ const Pharmacy = sequelize.define("Pharmacy", {
     type: DataTypes.JSON,
     allowNull: true,
   },
-  isActive: {
+  isVerified: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
+  },
+  verificationData: {
+    type: DataTypes.JSON,
+    allowNull: true,
   },
   lastSyncAt: {
     type: DataTypes.DATE,

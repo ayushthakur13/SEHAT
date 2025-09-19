@@ -1,22 +1,43 @@
 import bcrypt from "bcryptjs";
-import { Patient, Doctor, Pharmacy } from "../models/index.js";
+import { User, Patient, Doctor, Pharmacy } from "../models/index.js";
 import { generateToken } from "../middleware/auth.js";
 import { authService } from "../services/authService.js";
 
 class AuthController {
-  // Register Patient
-  async registerPatient(req, res) {
+  // Unified Registration
+  async register(req, res) {
     try {
-      const { name, email, phone, password, dateOfBirth, gender, address, preferredLanguage } = req.body;
+      const { name, phone, email, password, gender, dateOfBirth, role, preferredLanguage } = req.body;
+
+      // Validation
+      if (!name || !phone || !password || !role) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Name, phone, password, and role are required'
+        });
+      }
+
+      if (!['patient', 'doctor', 'pharmacy'].includes(role)) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Invalid role. Must be patient, doctor, or pharmacy'
+        });
+      }
 
       const result = await authService.registerUser({
-        userType: 'patient',
-        userData: { name, email, phone, password, dateOfBirth, gender, address, preferredLanguage }
+        name, 
+        phone, 
+        email, 
+        password, 
+        gender, 
+        dateOfBirth, 
+        role, 
+        preferredLanguage
       });
 
       res.status(201).json({
         status: 'success',
-        message: 'Patient registered successfully',
+        message: `${role.charAt(0).toUpperCase() + role.slice(1)} registered successfully`,
         data: result
       });
     } catch (error) {
@@ -27,57 +48,19 @@ class AuthController {
     }
   }
 
-  // Register Doctor
-  async registerDoctor(req, res) {
+  // Unified Login
+  async login(req, res) {
     try {
-      const { name, email, phone, password, licenseNumber, specialization, experience, consultationFee, languages } = req.body;
+      const { identifier, password } = req.body; // identifier can be phone or email
 
-      const result = await authService.registerUser({
-        userType: 'doctor',
-        userData: { name, email, phone, password, licenseNumber, specialization, experience, consultationFee, languages }
-      });
+      if (!identifier || !password) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Phone/email and password are required'
+        });
+      }
 
-      res.status(201).json({
-        status: 'success',
-        message: 'Doctor registered successfully',
-        data: result
-      });
-    } catch (error) {
-      res.status(400).json({
-        status: 'error',
-        message: error.message
-      });
-    }
-  }
-
-  // Register Pharmacy
-  async registerPharmacy(req, res) {
-    try {
-      const { name, email, phone, password, licenseNumber, address, city, state, pincode, workingHours } = req.body;
-
-      const result = await authService.registerUser({
-        userType: 'pharmacy',
-        userData: { name, email, phone, password, licenseNumber, address, city, state, pincode, workingHours }
-      });
-
-      res.status(201).json({
-        status: 'success',
-        message: 'Pharmacy registered successfully',
-        data: result
-      });
-    } catch (error) {
-      res.status(400).json({
-        status: 'error',
-        message: error.message
-      });
-    }
-  }
-
-  // Login Patient
-  async loginPatient(req, res) {
-    try {
-      const { email, password } = req.body;
-      const result = await authService.loginUser('patient', email, password);
+      const result = await authService.loginUser(identifier, password);
       
       res.json({
         status: 'success',
@@ -92,38 +75,72 @@ class AuthController {
     }
   }
 
-  // Login Doctor
-  async loginDoctor(req, res) {
+  // Doctor Verification
+  async verifyDoctor(req, res) {
     try {
-      const { email, password } = req.body;
-      const result = await authService.loginUser('doctor', email, password);
-      
+      const userId = req.user.id;
+      const { hospitalId, specialization, experience, languages, currentHospitalClinic, pincode } = req.body;
+
+      if (!hospitalId || !specialization || !pincode) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Hospital ID, specialization, and pincode are required'
+        });
+      }
+
+      const result = await authService.verifyDoctor(userId, {
+        hospitalId,
+        specialization,
+        experience,
+        languages,
+        currentHospitalClinic,
+        pincode
+      });
+
       res.json({
         status: 'success',
-        message: 'Login successful',
-        data: result
+        message: result.message,
+        data: { isVerified: result.isVerified }
       });
     } catch (error) {
-      res.status(401).json({
+      res.status(400).json({
         status: 'error',
         message: error.message
       });
     }
   }
 
-  // Login Pharmacy
-  async loginPharmacy(req, res) {
+  // Pharmacy Verification
+  async verifyPharmacy(req, res) {
     try {
-      const { email, password } = req.body;
-      const result = await authService.loginUser('pharmacy', email, password);
-      
+      const userId = req.user.id;
+      const { storeName, licenseNumber, gstNumber, address, city, state, pincode, workingHours } = req.body;
+
+      if (!storeName || (!licenseNumber && !gstNumber) || !address || !pincode) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Store name, license number or GST number, address, and pincode are required'
+        });
+      }
+
+      const result = await authService.verifyPharmacy(userId, {
+        storeName,
+        licenseNumber,
+        gstNumber,
+        address,
+        city,
+        state,
+        pincode,
+        workingHours
+      });
+
       res.json({
         status: 'success',
-        message: 'Login successful',
-        data: result
+        message: result.message,
+        data: { isVerified: result.isVerified }
       });
     } catch (error) {
-      res.status(401).json({
+      res.status(400).json({
         status: 'error',
         message: error.message
       });
