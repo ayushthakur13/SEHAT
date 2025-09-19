@@ -1,0 +1,33 @@
+# General
+.env
+.env.*
+*.log
+logs/
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors/IDE
+.vscode/
+.idea/
+*.iml
+
+# Node/Backend
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Flutter/Dart
+**/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+
+# Database artifacts (local only)
+database/data/
+couchdb-data/
+
