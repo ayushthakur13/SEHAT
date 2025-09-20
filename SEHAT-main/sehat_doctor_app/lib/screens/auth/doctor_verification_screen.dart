@@ -114,7 +114,7 @@ class _DoctorVerificationScreenState extends State<DoctorVerificationScreen> {
       appBar: AppBar(
         title: const Text('Doctor Verification'),
         backgroundColor: Colors.transparent,
-        foregroundColor: const Color(0xFF2E8B57),
+        foregroundColor: const Color(0xFF1976D2),
         elevation: 0,
       ),
       body: SafeArea(
@@ -133,7 +133,7 @@ class _DoctorVerificationScreenState extends State<DoctorVerificationScreen> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -274,8 +274,8 @@ class _DoctorVerificationScreenState extends State<DoctorVerificationScreen> {
                               }
                             });
                           },
-                          selectedColor: const Color(0xFF2E8B57).withOpacity(0.2),
-                          checkmarkColor: const Color(0xFF2E8B57),
+                          selectedColor: const Color(0xFF1976D2).withOpacity(0.2),
+                          checkmarkColor: const Color(0xFF1976D2),
                         );
                       }).toList(),
                     ),

@@ -89,7 +89,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
       appBar: AppBar(
         title: const Text('Complete Your Profile'),
         backgroundColor: Colors.transparent,
-        foregroundColor: const Color(0xFF2E8B57),
+        foregroundColor: const Color(0xFF1976D2),
         elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
@@ -107,7 +107,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             children: [
               // Welcome message
               Card(
-                color: const Color(0xFF2E8B57).withOpacity(0.1),
+                color: const Color(0xFF1976D2).withOpacity(0.1),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -115,7 +115,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       const Icon(
                         Icons.verified_user_outlined,
                         size: 48,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -123,7 +123,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF2E8B57),
+                          color: Color(0xFF1976D2),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -261,7 +261,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -280,8 +280,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           label: Text(language['label']!),
                           selected: isSelected,
                           onSelected: (selected) => _toggleLanguage(language['value']!),
-                          selectedColor: const Color(0xFF2E8B57).withOpacity(0.2),
-                          checkmarkColor: const Color(0xFF2E8B57),
+                          selectedColor: const Color(0xFF1976D2).withOpacity(0.2),
+                          checkmarkColor: const Color(0xFF1976D2),
                         );
                       }).toList(),
                     ),

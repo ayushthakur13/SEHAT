@@ -106,7 +106,7 @@ class _PharmacyVerificationScreenState extends State<PharmacyVerificationScreen>
       appBar: AppBar(
         title: const Text('Pharmacy Verification'),
         backgroundColor: Colors.transparent,
-        foregroundColor: const Color(0xFF2E8B57),
+        foregroundColor: const Color(0xFF1976D2),
         elevation: 0,
       ),
       body: SafeArea(
@@ -125,7 +125,7 @@ class _PharmacyVerificationScreenState extends State<PharmacyVerificationScreen>
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                       textAlign: TextAlign.center,
                     ),

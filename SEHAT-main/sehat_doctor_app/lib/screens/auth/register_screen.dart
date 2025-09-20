@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         title: const Text('Create Account'),
         backgroundColor: Colors.transparent,
-        foregroundColor: const Color(0xFF2E8B57),
+        foregroundColor: const Color(0xFF1976D2),
         elevation: 0,
       ),
       body: SafeArea(
@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -175,7 +175,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -196,9 +196,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: Container(
                                 padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                                 decoration: BoxDecoration(
-                                  color: isSelected ? const Color(0xFF2E8B57).withOpacity(0.1) : Colors.white,
+                                  color: isSelected ? const Color(0xFF1976D2).withOpacity(0.1) : Colors.white,
                                   border: Border.all(
-                                    color: isSelected ? const Color(0xFF2E8B57) : Colors.grey[300]!,
+                                    color: isSelected ? const Color(0xFF1976D2) : Colors.grey[300]!,
                                     width: isSelected ? 2 : 1,
                                   ),
                                   borderRadius: BorderRadius.circular(12),
@@ -216,7 +216,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
-                                        color: isSelected ? const Color(0xFF2E8B57) : Colors.grey[700],
+                                        color: isSelected ? const Color(0xFF1976D2) : Colors.grey[700],
                                       ),
                                     ),
                                     const SizedBox(height: 2),
@@ -224,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       role['description']!,
                                       style: TextStyle(
                                         fontSize: 10,
-                                        color: isSelected ? const Color(0xFF2E8B57) : Colors.grey[600],
+                                        color: isSelected ? const Color(0xFF1976D2) : Colors.grey[600],
                                       ),
                                       textAlign: TextAlign.center,
                                     ),

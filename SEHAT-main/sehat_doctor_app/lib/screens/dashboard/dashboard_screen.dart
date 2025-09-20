@@ -31,7 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _currentIndex = index;
           });
         },
-        selectedItemColor: const Color(0xFF2E8B57),
+        selectedItemColor: const Color(0xFF1976D2),
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
@@ -127,7 +127,7 @@ class DashboardHomeScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF2E8B57),
+                            color: Color(0xFF1976D2),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -183,7 +183,7 @@ class DashboardHomeScreen extends StatelessWidget {
                     title: 'Completed',
                     value: '5',
                     icon: Icons.check_circle,
-                    color: Colors.green,
+                    color: const Color(0xFF1976D2),
                   ),
                 ),
               ],
@@ -221,7 +221,7 @@ class DashboardHomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF2E8B57),
+                color: Color(0xFF1976D2),
               ),
             ),
             const SizedBox(height: 16),
@@ -305,12 +305,12 @@ class DashboardHomeScreen extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: const Color(0xFF2E8B57).withOpacity(0.2),
+          backgroundColor: const Color(0xFF1976D2).withOpacity(0.2),
           child: Text(
             patientName[0],
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2E8B57),
+              color: Color(0xFF1976D2),
             ),
           ),
         ),
@@ -319,14 +319,14 @@ class DashboardHomeScreen extends StatelessWidget {
         trailing: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: status == 'Completed' ? Colors.green.withOpacity(0.2) : Colors.blue.withOpacity(0.2),
+            color: status == 'Completed' ? const Color(0xFF1976D2).withOpacity(0.2) : const Color(0xFF42A5F5).withOpacity(0.2),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
             status,
             style: TextStyle(
               fontSize: 12,
-              color: status == 'Completed' ? Colors.green : Colors.blue,
+              color: status == 'Completed' ? const Color(0xFF1976D2) : const Color(0xFF42A5F5),
               fontWeight: FontWeight.w600,
             ),
           ),

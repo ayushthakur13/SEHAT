@@ -124,17 +124,17 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                         width: 120,
                         height: 120,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2E8B57).withOpacity(0.1),
+                          color: const Color(0xFF1976D2).withOpacity(0.1),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: const Color(0xFF2E8B57).withOpacity(0.3),
+                            color: const Color(0xFF1976D2).withOpacity(0.3),
                             width: 2,
                           ),
                         ),
                         child: Icon(
                           Icons.access_time,
                           size: 60,
-                          color: const Color(0xFF2E8B57),
+                          color: const Color(0xFF1976D2),
                         ),
                       ),
                     );
@@ -149,7 +149,7 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF2E8B57),
+                    color: Color(0xFF1976D2),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -191,12 +191,12 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                             width: 48,
                             height: 48,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF2E8B57).withOpacity(0.1),
+                              color: const Color(0xFF1976D2).withOpacity(0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Icon(
                               _getRoleIcon(),
-                              color: const Color(0xFF2E8B57),
+                              color: const Color(0xFF1976D2),
                               size: 24,
                             ),
                           ),
@@ -250,17 +250,17 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2E8B57).withOpacity(0.1),
+                      color: const Color(0xFF1976D2).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: const Color(0xFF2E8B57).withOpacity(0.3),
+                        color: const Color(0xFF1976D2).withOpacity(0.3),
                       ),
                     ),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.email_outlined,
-                          color: Color(0xFF2E8B57),
+                          color: Color(0xFF1976D2),
                           size: 20,
                         ),
                         const SizedBox(width: 12),
@@ -273,7 +273,7 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFF2E8B57),
+                                  color: Color(0xFF1976D2),
                                 ),
                               ),
                               const SizedBox(height: 2),
@@ -298,7 +298,7 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LoadingAnimationWidget.staggeredDotsWave(
-                      color: const Color(0xFF2E8B57),
+                      color: const Color(0xFF1976D2),
                       size: 30,
                     ),
                     const SizedBox(width: 16),
@@ -327,7 +327,7 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xFF2E8B57)),
+                      side: const BorderSide(color: Color(0xFF1976D2)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -337,7 +337,7 @@ class _VerificationPendingScreenState extends State<VerificationPendingScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                     ),
                   ),

@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 80,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2E8B57),
+                          color: const Color(0xFF1976D2),
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: const Icon(
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF2E8B57),
+                          color: Color(0xFF1976D2),
                         ),
                       ),
                       const SizedBox(height: 8),

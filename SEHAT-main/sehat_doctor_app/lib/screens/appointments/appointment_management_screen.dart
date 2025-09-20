@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../providers/auth_provider.dart';
+import '../../services/video_call_service.dart';
 
 class AppointmentManagementScreen extends StatefulWidget {
   const AppointmentManagementScreen({super.key});
@@ -17,6 +18,7 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
   String _selectedStatus = 'All';
   
   final List<String> _statusFilters = ['All', 'Scheduled', 'Completed', 'Cancelled', 'Rescheduled'];
+  final VideoCallService _videoCallService = VideoCallService();
 
   // Mock appointment data
   final List<Map<String, dynamic>> _appointments = [
@@ -112,7 +114,7 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
       appBar: AppBar(
         title: const Text('Appointments'),
         backgroundColor: Colors.transparent,
-        foregroundColor: const Color(0xFF2E8B57),
+        foregroundColor: const Color(0xFF1976D2),
         elevation: 0,
         actions: [
           IconButton(
@@ -126,8 +128,8 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
         ],
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: const Color(0xFF2E8B57),
-          labelColor: const Color(0xFF2E8B57),
+          indicatorColor: const Color(0xFF1976D2),
+          labelColor: const Color(0xFF1976D2),
           unselectedLabelColor: Colors.grey,
           tabs: const [
             Tab(text: 'Today'),
@@ -167,7 +169,7 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showNewAppointmentDialog,
-        backgroundColor: const Color(0xFF2E8B57),
+        backgroundColor: const Color(0xFF1976D2),
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );
@@ -189,14 +191,14 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
       ),
       child: Column(
         children: [
-          Icon(icon, color: const Color(0xFF2E8B57), size: 24),
+          Icon(icon, color: const Color(0xFF1976D2), size: 24),
           const SizedBox(height: 8),
           Text(
             count.toString(),
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2E8B57),
+              color: Color(0xFF1976D2),
             ),
           ),
           Text(
@@ -309,11 +311,11 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: const Color(0xFF2E8B57).withOpacity(0.1),
+                    backgroundColor: const Color(0xFF1976D2).withOpacity(0.1),
                     child: Text(
                       appointment['patientName'].toString().split(' ').map((e) => e[0]).join(''),
                       style: const TextStyle(
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -412,6 +414,66 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
+              // Action buttons for scheduled appointments
+              if (status == 'Scheduled' && isOnline) ...[
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () => _startVideoCall(appointment),
+                        icon: const Icon(Icons.videocam, size: 18),
+                        label: const Text('Start Video Call'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1976D2),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () => _showAppointmentDetails(appointment),
+                        icon: const Icon(Icons.info_outline, size: 18),
+                        label: const Text('Details'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color(0xFF1976D2),
+                          side: const BorderSide(color: Color(0xFF1976D2)),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ] else if (status == 'Scheduled') ...[
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () => _showAppointmentDetails(appointment),
+                        icon: const Icon(Icons.info_outline, size: 18),
+                        label: const Text('View Details'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color(0xFF1976D2),
+                          side: const BorderSide(color: Color(0xFF1976D2)),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
@@ -496,11 +558,11 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor: const Color(0xFF2E8B57).withOpacity(0.1),
+                    backgroundColor: const Color(0xFF1976D2).withOpacity(0.1),
                     child: Text(
                       appointment['patientName'].toString().split(' ').map((e) => e[0]).join(''),
                       style: const TextStyle(
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                       ),
@@ -580,7 +642,8 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
                       onPressed: () {
                         Navigator.pop(context);
                         if (appointment['isOnline']) {
-                          // TODO: Start video call
+                          _startVideoCall(appointment);
+
                         } else {
                           // TODO: Mark as completed or start consultation
                         }
@@ -672,5 +735,77 @@ class _AppointmentManagementScreenState extends State<AppointmentManagementScree
       final date = apt['date'] as DateTime;
       return date.month == now.month && date.year == now.year;
     }).length;
+  }
+
+  /// Start video call for the appointment
+  Future<void> _startVideoCall(Map<String, dynamic> appointment) async {
+    try {
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+
+      // Get current user info
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final currentUser = authProvider.user;
+      
+      if (currentUser == null) {
+        Navigator.pop(context); // Close loading dialog
+        _showErrorDialog('Please login to start video call');
+        return;
+      }
+
+      // Generate room code for the appointment
+      final roomCode = _videoCallService.generateAppointmentRoomCode(appointment['id']);
+      
+      // Join the video meeting
+      await _videoCallService.joinMeeting(
+        roomCode: roomCode,
+        userName: currentUser.name ?? 'Doctor',
+        userEmail: currentUser.email,
+        isAudioMuted: false,
+        isVideoMuted: false,
+      );
+
+      // Close loading dialog
+      Navigator.pop(context);
+      
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Opening video call with ${appointment['patientName']} in new tab'),
+          backgroundColor: const Color(0xFF1976D2),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      
+    } catch (e) {
+      // Close loading dialog
+      Navigator.pop(context);
+      
+      // Show error message
+      _showErrorDialog('Failed to start video call: ${e.toString()}');
+    }
+  }
+
+  /// Show error dialog
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 }

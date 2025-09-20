@@ -102,7 +102,7 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
       appBar: AppBar(
         title: const Text('Complete Your Profile'),
         backgroundColor: Colors.transparent,
-        foregroundColor: const Color(0xFF2E8B57),
+        foregroundColor: const Color(0xFF1976D2),
         elevation: 0,
       ),
       body: SafeArea(
@@ -121,7 +121,7 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -142,7 +142,7 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -254,8 +254,8 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
                               }
                             });
                           },
-                          selectedColor: const Color(0xFF2E8B57).withOpacity(0.2),
-                          checkmarkColor: const Color(0xFF2E8B57),
+                          selectedColor: const Color(0xFF1976D2).withOpacity(0.2),
+                          checkmarkColor: const Color(0xFF1976D2),
                         );
                       }).toList(),
                     ),
@@ -302,7 +302,7 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF1976D2),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -364,8 +364,8 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2E8B57).withOpacity(0.1),
-                        border: Border.all(color: const Color(0xFF2E8B57).withOpacity(0.3)),
+                        color: const Color(0xFF1976D2).withOpacity(0.1),
+                        border: Border.all(color: const Color(0xFF1976D2).withOpacity(0.3)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -373,7 +373,7 @@ class _PatientOnboardingScreenState extends State<PatientOnboardingScreen> {
                         children: [
                           const Icon(
                             Icons.security,
-                            color: Color(0xFF2E8B57),
+                            color: Color(0xFF1976D2),
                             size: 20,
                           ),
                           const SizedBox(width: 8),
