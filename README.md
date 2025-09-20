@@ -14,7 +14,7 @@ SIH 2025, ID 25018 — Telemedicine Access for Rural Healthcare in Nabha. Many r
 ## Tech Stack
 - **Frontend**: Flutter (three role-specific apps sharing common modules)
 - **Backend**: Node.js + Express
-- **Databases**: CouchDB (server), PouchDB (client for offline-first sync)
+- **Databases**: Supabase (server), SQLite (client for offline-first sync)
 - **Auth**: JWT
 - **Realtime (optional)**: Socket.IO
 
